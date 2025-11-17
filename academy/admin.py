@@ -19,6 +19,16 @@ class TrainerAdmin(admin.ModelAdmin):
     list_display_links = ['full_name', 'email']
     ordering = ['-id']
 
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'full_name', 'email', 'is_active', 'enrolled_course', 'trainer']
+    list_filter = ['enrolled_course','trainer']
+    search_fields = ['first_name', 'last_name', 'email','trainer']
+    list_editable = ['is_active']
+    list_display_links = ['full_name', 'email']
+    ordering = ['-id']
+
+
 
 admin.site.register(Course,CourseAdmin)
 admin.site.register(Trainer,TrainerAdmin)
+admin.site.register(Student,StudentAdmin)
