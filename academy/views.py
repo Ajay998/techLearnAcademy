@@ -27,3 +27,10 @@ def trainer(request):
     }
     return render(request,"trainerPage.html",context)
 
+def student(request):
+    students = Student.objects.all()
+    context = {
+        "students" :  students
+    }
+    return render(request,"studentPage.html",context)
+
