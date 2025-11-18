@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Learn Academy</title>
-    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+    <link rel="stylesheet" href="{% static 'css/trainer.css' %}">
 
 </head>
 <body>
@@ -17,26 +17,26 @@
         <a href="{% url 'trainer' %}">Trainers</a>
         <a href="#">Students</a>
     </nav>
-    <h2>Courses - Tech Learn Academy</h2>
+    <h2>Trainers - Tech Learn Academy</h2>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Course Name</th>
-                <th>Description</th>
-                <th>Duration</th>
-                <th>Course Image</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Expertise</th>
+                <th>Trainer Photo</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for course in courses %}
+            {% for trainer in trainers %}
                 <tr>
-                    <td>{{ course.id }}</td>
-                    <td>{{ course.course_name }}</td>
-                    <td>{{ course.description }}</td>
-                    <td>{{ course.duration }}</td>
-                    <td> <img src="{{ course.course_image.url }}" class="course-img"></td>
+                    <td>{{ trainer.id }}</td>
+                    <td>{{ trainer.full_name }}</td>
+                    <td>{{ trainer.email }}</td>
+                    <td>{{ trainer.expertise }}</td>
+                    <td> <img src="{{ trainer.trainer_photo.url }}" class="course-img"></td>
                 </tr>
             {% endfor %}
         </tbody>
