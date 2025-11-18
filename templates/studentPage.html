@@ -17,26 +17,28 @@
         <a href="{% url 'trainer' %}">Trainers</a>
         <a href="{% url 'student' %}">Students</a>
     </nav>
-    <h2>Trainers - Tech Learn Academy</h2>
+    <h2>Students - Tech Learn Academy</h2>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Full Name</th>
                 <th>Email</th>
-                <th>Expertise</th>
-                <th>Trainer Photo</th>
+                <th>Active</th>
+                <th>Enrolled Course</th>
+                <th>Trainer</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for trainer in trainers %}
+            {% for student in students %}
                 <tr>
-                    <td>{{ trainer.id }}</td>
-                    <td>{{ trainer.full_name }}</td>
-                    <td>{{ trainer.email }}</td>
-                    <td>{{ trainer.expertise }}</td>
-                    <td> <img src="{{ trainer.trainer_photo.url }}" class="course-img"></td>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.is_active }}</td>
+                    <td>{{ student.enrolled_course }}</td>
+                    <td>{{ student.trainer }}</td>
                 </tr>
             {% endfor %}
         </tbody>
