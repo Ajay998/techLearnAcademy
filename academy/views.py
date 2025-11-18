@@ -19,3 +19,11 @@ def course(request):
         "courses" :  courses
     }
     return render(request,"coursePage.html",context)
+
+def trainer(request):
+    trainers = Trainer.objects.all()
+    context = {
+        "trainers" :  trainers
+    }
+    return render(request,"trainerPage.html",context)
+
