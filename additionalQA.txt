@@ -1,0 +1,28 @@
+Explain in your own simple words, what kind of queries would you like to perform on 
+Students, Courses, or Trainers?
+
+Students
+1 Query to get students for particular enrolled course
+2 Query to get students for particular trainer
+3 Query to get if student is active or not
+4 Query to get email of student
+
+Courses
+1 Query to get description of a course
+2 Query to get duration of a course
+3 Query to get trainers and students of a particular course
+
+Trainers
+1 Query to get trainer expertise
+2 Query to get email of trainer
+3 Query to get students under trainer
+
+Explain in your own simple words, if you were building this for a real institute, what 
+feature would you add next
+1 Attendance
+2 Exam Mark
+3 Course Payment
+4 Certification
+5 Upload Material
+6 Timing Batch
+
