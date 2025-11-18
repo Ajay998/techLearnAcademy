@@ -12,3 +12,10 @@ def home(request):
         "total_student" : total_student
     }
     return render(request,"homePage.html",context)
+
+def course(request):
+    courses = Course.objects.all()
+    context = {
+        "courses" :  courses
+    }
+    return render(request,"coursePage.html",context)

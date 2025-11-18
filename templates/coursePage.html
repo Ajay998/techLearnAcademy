@@ -1,0 +1,46 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'course' %}">Courses</a>
+        <a href="#">Trainers</a>
+        <a href="#">Students</a>
+    </nav>
+    <h2>Courses - Tech Learn Academy</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>Course Image</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ course.id }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.description }}</td>
+                    <td>{{ course.duration }}</td>
+                    <td> <img src="{{ course.course_image.url }}" class="course-img"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</body>
+</html>
