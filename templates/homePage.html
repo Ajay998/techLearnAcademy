@@ -12,28 +12,44 @@
 <body>
 
     <nav class="navbar">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'course' %}">Courses</a>
-        <a href="{% url 'trainer' %}">Trainers</a>
-        <a href="{% url 'student' %}">Students</a>
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
     </nav>
 
-    <h1 class="title">Home - Tech Learn Academy</h1>
+    <div class="content-wrapper">
+        <h1 class="title">Tech Learn Academy</h1>
 
-    <div class="box-container">
-        <div class="center-box">
-            <h2>Total Courses</h2>
-            <p>{{ total_course }}</p>
-        </div>
+        <div class="box-container">
+            <div class="center-box">
+                <div class="box-icon">📚</div>
+                <h2>Total Courses</h2>
+                <p class="box-number">{{ total_course }}</p>
+            </div>
 
-        <div class="center-box">
-            <h2>Total Trainers</h2>
-            <p>{{ total_trainer }}</p>
-        </div>
+            <div class="center-box">
+                <div class="box-icon">👨‍🏫</div>
+                <h2>Total Trainers</h2>
+                <p class="box-number">{{ total_trainer }}</p>
+            </div>
 
-        <div class="center-box">
-            <h2>Total Students</h2>
-            <p>{{ total_student }}</p>
+            <div class="center-box">
+                <div class="box-icon">👨‍🎓</div>
+                <h2>Total Students</h2>
+                <p class="box-number">{{ total_student }}</p>
+            </div>
         </div>
     </div>
 
