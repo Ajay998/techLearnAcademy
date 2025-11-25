@@ -40,8 +40,12 @@ body {
     color: #ecf0f1;
     font-weight: 500;
     background: rgba(255, 255, 255, 0.15);
-    padding: 8px 15px;
+    padding: 10px 25px;
     border-radius: 5px;
+    border: 2px solid transparent;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .btn-login-nav, .btn-register-nav, .btn-logout {
@@ -50,6 +54,9 @@ body {
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .btn-login-nav {

@@ -21,7 +21,7 @@
         <div class="nav-right">
             {% if user.is_authenticated %}
                 <span class="welcome-msg">Welcome, {{ user.username }}!</span>
-                <a href="" class="btn-logout">Logout</a>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
             {% else %}
                 <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
                 <a href="{% url 'register' %}" class="btn-register-nav">Register</a>

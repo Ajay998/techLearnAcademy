@@ -35,3 +35,8 @@ def login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'Logged out successfully!')
+    return redirect('login')
