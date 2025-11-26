@@ -32,7 +32,10 @@
     </nav>
 
     <div class="content-wrapper">
-        <h2>Students - Tech Learn Academy</h2>
+        <div class="page-header">
+            <h2>Students - Tech Learn Academy</h2>
+            <a href="{% url 'add_student' %}" class="btn-add-new">+ Add New Student</a>
+        </div>
         
         {% if messages %}
             <div class="messages-container">

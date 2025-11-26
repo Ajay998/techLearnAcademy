@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student - Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h2>Add New Student</h2>
+        
+        <div class="form-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <span class="error-msg">{{ form.first_name.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <span class="error-msg">{{ form.last_name.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span class="error-msg">{{ form.email.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.is_active.id_for_label }}">Active Status</label>
+                    {{ form.is_active }}
+                    {% if form.is_active.errors %}
+                        <span class="error-msg">{{ form.is_active.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.enrolled_course.id_for_label }}">Enrolled Course</label>
+                    {{ form.enrolled_course }}
+                    {% if form.enrolled_course.errors %}
+                        <span class="error-msg">{{ form.enrolled_course.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.trainer.id_for_label }}">Assigned Trainer</label>
+                    {{ form.trainer }}
+                    {% if form.trainer.errors %}
+                        <span class="error-msg">{{ form.trainer.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-update">Add Student</button>
+                    <a href="{% url 'student' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
