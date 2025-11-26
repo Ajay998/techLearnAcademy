@@ -1,0 +1,84 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h2>Students - Tech Learn Academy</h2>
+        
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Enrolled Course</th>
+                <th>Trainer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{% if student.is_active %}Yes{% else %}No{% endif %}</td>
+                    <td>{% if student.enrolled_course %}{{ student.enrolled_course.course_name }}{% else %}Not enrolled{% endif %}</td>
+                    <td>{% if student.trainer %}{{ student.trainer.full_name }}{% else %}Not assigned{% endif %}</td>
+                    <td>
+                        <div>
+                            <a href="{% url 'student_detail' student.id %}"><i class="fa fa-eye"></i>View</a>
+                            <a href="{% url 'edit_student' student.id %}"><i class="fa fa-pencil"></i>Edit</a>
+                            <a href="{% url 'delete_student' student.id %}"><i class="fa fa-trash"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    </div>
+
+</body>
+</html>

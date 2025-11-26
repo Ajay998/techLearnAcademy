@@ -14,4 +14,8 @@ urlpatterns = [
     path('academy/trainer/<int:id>',views.trainer_detail, name= "trainer_detail"),
     path('academy/trainer/edit/<int:id>',views.edit_trainer, name= "edit_trainer"),
     path('academy/trainer/delete/<int:id>',views.delete_trainer, name= "delete_trainer"),
+
+    path('academy/student/<int:id>',views.student_detail, name= "student_detail"),
+    path('academy/student/edit/<int:id>',views.edit_student, name= "edit_student"),
+    path('academy/student/delete/<int:id>',views.delete_student, name= "delete_student"),
 ]
