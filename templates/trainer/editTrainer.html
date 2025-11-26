@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Trainer - Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/trainer.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h2>Edit Trainer</h2>
+        
+        <div class="form-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <span class="error">{{ form.first_name.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <span class="error">{{ form.last_name.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span class="error">{{ form.email.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.expertise.id_for_label }}">Expertise</label>
+                    {{ form.expertise }}
+                    {% if form.expertise.errors %}
+                        <span class="error">{{ form.expertise.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.trainer_photo.id_for_label }}">Trainer Photo</label>
+                    {% if trainer.trainer_photo %}
+                        <div class="current-image">
+                            <p>Current Image:</p>
+                            <img src="{{ trainer.trainer_photo.url }}" alt="{{ trainer.full_name }}" class="preview-img">
+                        </div>
+                    {% endif %}
+                    {{ form.trainer_photo }}
+        
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-update">Update Trainer</button>
+                    <a href="{% url 'trainer' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

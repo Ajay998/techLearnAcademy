@@ -1,0 +1,82 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/trainer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h2>Trainers - Tech Learn Academy</h2>
+        
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Expertise</th>
+                <th>Trainer Photo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for trainer in trainers %}
+                <tr>
+                    <td>{{ trainer.id }}</td>
+                    <td>{{ trainer.full_name }}</td>
+                    <td>{{ trainer.email }}</td>
+                    <td>{{ trainer.expertise }}</td>
+                    <td> <img src="{{ trainer.trainer_photo.url }}" class="course-img"></td>
+                    <td>
+                        <div>
+                            <a href="{% url 'trainer_detail' trainer.id %}"><i class="fa fa-eye"></i>View</a>
+                            <a href="{% url 'edit_trainer' trainer.id %}"><i class="fa fa-pencil"></i>Edit</a>
+                            <a href="{% url 'delete_trainer' trainer.id %}"><i class="fa fa-trash"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    </div>
+
+</body>
+</html>

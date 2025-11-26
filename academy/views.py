@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Course, Trainer, Student
-from .forms import CourseForm
+from .forms import CourseForm, TrainerForm
 from django.contrib import messages
 
 # Create your views here.
@@ -28,7 +28,7 @@ def trainer(request):
     context = {
         "trainers" :  trainers
     }
-    return render(request,"trainerPage.html",context)
+    return render(request,"trainer/trainerPage.html",context)
 
 def student(request):
     students = Student.objects.all()
@@ -63,3 +63,30 @@ def delete_course(request, id):
     course.delete()
     messages.success(request, 'Course deleted successfully!')
     return redirect('course')
+
+def trainer_detail(request,id):
+    trainer_detail = get_object_or_404(Trainer, id=id)
+    context = {
+        "trainer_detail": trainer_detail
+    }
+    return render(request,"trainer/trainerDetail.html", context)
+
+def edit_trainer(request, id):
+    trainer = get_object_or_404(Trainer, id=id)
+    if request.method == "POST":
+        form = TrainerForm(request.POST, request.FILES, instance=trainer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Trainer updated successfully!')
+            return redirect('trainer')
+        else:
+            messages.error(request, 'Update failed. Please check the form.')
+    else:
+        form = TrainerForm(instance=trainer)
+    return render(request, 'trainer/editTrainer.html', {'trainer': trainer, 'form': form})
+
+def delete_trainer(request, id):
+    trainer = get_object_or_404(Trainer, id=id)
+    trainer.delete()
+    messages.success(request, 'Trainer deleted successfully!')
+    return redirect('trainer')
