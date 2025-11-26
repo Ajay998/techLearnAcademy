@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Detail - Tech Learn Academy</title>
+    <link rel="stylesheet" href="{% static 'css/trainer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'course' %}">Courses</a>
+            <a href="{% url 'trainer' %}">Trainers</a>
+            <a href="{% url 'student' %}">Students</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="welcome-msg">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login-nav">Login</a>
+                <a href="{% url 'register' %}" class="btn-register-nav">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h2>Trainer Details</h2>
+        
+        <div class="form-container">
+            <div class="detail-header">
+                <h3 class="course-name">{{ trainer_detail.full_name }}</h3>
+            </div>
+
+            <div class="detail-image">
+                <img src="{{ trainer_detail.trainer_photo.url }}" alt="{{ trainer_detail.full_name }}" class="preview-img-large">
+            </div>
+
+            <div class="detail-group">
+                <label><i class="fa fa-user"></i> Full Name</label>
+                <p class="detail-text">{{ trainer_detail.first_name }} {{ trainer_detail.last_name }}</p>
+            </div>
+
+            <div class="detail-group">
+                <label><i class="fa fa-envelope"></i> Email</label>
+                <p class="detail-text">{{ trainer_detail.email }}</p>
+            </div>
+
+            <div class="detail-group">
+                <label><i class="fa fa-graduation-cap"></i> Expertise</label>
+                <p class="detail-text">{{ trainer_detail.expertise }}</p>
+            </div>
+
+            <div class="form-actions">
+                <a href="{% url 'trainer' %}" class="btn-cancel">Back to Trainers</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
