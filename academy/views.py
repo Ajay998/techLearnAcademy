@@ -37,6 +37,19 @@ def student(request):
     }
     return render(request,"student/studentPage.html",context)
 
+def add_course(request):
+    if request.method == "POST":
+        form = CourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course added successfully!')
+            return redirect('course')
+        else:
+            messages.error(request, 'Failed to add course. Please check the form.')
+    else:
+        form = CourseForm()
+    return render(request, 'course/addCourse.html', {'form': form})
+
 def course_detail(request, id):
     course_detail = get_object_or_404(Course, id=id)
     context = {
@@ -64,6 +77,19 @@ def delete_course(request, id):
     messages.success(request, 'Course deleted successfully!')
     return redirect('course')
 
+def add_trainer(request):
+    if request.method == "POST":
+        form = TrainerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Trainer added successfully!')
+            return redirect('trainer')
+        else:
+            messages.error(request, 'Failed to add trainer. Please check the form.')
+    else:
+        form = TrainerForm()
+    return render(request, 'trainer/addTrainer.html', {'form': form})
+
 def trainer_detail(request,id):
     trainer_detail = get_object_or_404(Trainer, id=id)
     context = {
@@ -90,6 +116,19 @@ def delete_trainer(request, id):
     trainer.delete()
     messages.success(request, 'Trainer deleted successfully!')
     return redirect('trainer')
+
+def add_student(request):
+    if request.method == "POST":
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Student added successfully!')
+            return redirect('student')
+        else:
+            messages.error(request, 'Failed to add student. Please check the form.')
+    else:
+        form = StudentForm()
+    return render(request, 'student/addStudent.html', {'form': form})
 
 def student_detail(request,id):
     student_detail = get_object_or_404(Student, id=id)
