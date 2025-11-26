@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404, redirect
 from .models import Course, Trainer, Student
+from .forms import CourseForm
+from django.contrib import messages
+
 # Create your views here.
 
 def home(request):
@@ -18,7 +21,7 @@ def course(request):
     context = {
         "courses" :  courses
     }
-    return render(request,"coursePage.html",context)
+    return render(request,"course/coursePage.html",context)
 
 def trainer(request):
     trainers = Trainer.objects.all()
@@ -34,3 +37,29 @@ def student(request):
     }
     return render(request,"studentPage.html",context)
 
+def course_detail(request, id):
+    course_detail = get_object_or_404(Course, id=id)
+    context = {
+        "course_detail": course_detail
+    }
+    return render(request,"course/courseDetail.html", context)
+
+def edit_course(request, id):
+    course = get_object_or_404(Course, id=id)
+    if request.method == "POST":
+        form = CourseForm(request.POST, request.FILES, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course updated successfully!')
+            return redirect('course')
+        else:
+            messages.error(request, 'Update failed. Please check the form.')
+    else:
+        form = CourseForm(instance=course)
+    return render(request, 'course/editCourse.html', {'course': course, 'form': form})
+
+def delete_course(request, id):
+    course = get_object_or_404(Course, id=id)
+    course.delete()
+    messages.success(request, 'Course deleted successfully!')
+    return redirect('course')
