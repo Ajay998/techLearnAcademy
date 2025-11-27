@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from .models import Course, Trainer, Student
 from .forms import CourseForm, TrainerForm, StudentForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -37,6 +38,8 @@ def student(request):
     }
     return render(request,"student/studentPage.html",context)
 
+
+@login_required
 def add_course(request):
     if request.method == "POST":
         form = CourseForm(request.POST, request.FILES)
@@ -50,6 +53,7 @@ def add_course(request):
         form = CourseForm()
     return render(request, 'course/addCourse.html', {'form': form})
 
+@login_required
 def course_detail(request, id):
     course_detail = get_object_or_404(Course, id=id)
     context = {
@@ -57,6 +61,8 @@ def course_detail(request, id):
     }
     return render(request,"course/courseDetail.html", context)
 
+
+@login_required
 def edit_course(request, id):
     course = get_object_or_404(Course, id=id)
     if request.method == "POST":
@@ -71,12 +77,14 @@ def edit_course(request, id):
         form = CourseForm(instance=course)
     return render(request, 'course/editCourse.html', {'course': course, 'form': form})
 
+@login_required
 def delete_course(request, id):
     course = get_object_or_404(Course, id=id)
     course.delete()
     messages.success(request, 'Course deleted successfully!')
     return redirect('course')
 
+@login_required
 def add_trainer(request):
     if request.method == "POST":
         form = TrainerForm(request.POST, request.FILES)
@@ -90,6 +98,7 @@ def add_trainer(request):
         form = TrainerForm()
     return render(request, 'trainer/addTrainer.html', {'form': form})
 
+@login_required
 def trainer_detail(request,id):
     trainer_detail = get_object_or_404(Trainer, id=id)
     context = {
@@ -97,6 +106,7 @@ def trainer_detail(request,id):
     }
     return render(request,"trainer/trainerDetail.html", context)
 
+@login_required
 def edit_trainer(request, id):
     trainer = get_object_or_404(Trainer, id=id)
     if request.method == "POST":
@@ -111,12 +121,14 @@ def edit_trainer(request, id):
         form = TrainerForm(instance=trainer)
     return render(request, 'trainer/editTrainer.html', {'trainer': trainer, 'form': form})
 
+@login_required
 def delete_trainer(request, id):
     trainer = get_object_or_404(Trainer, id=id)
     trainer.delete()
     messages.success(request, 'Trainer deleted successfully!')
     return redirect('trainer')
 
+@login_required
 def add_student(request):
     if request.method == "POST":
         form = StudentForm(request.POST, request.FILES)
@@ -130,6 +142,7 @@ def add_student(request):
         form = StudentForm()
     return render(request, 'student/addStudent.html', {'form': form})
 
+@login_required
 def student_detail(request,id):
     student_detail = get_object_or_404(Student, id=id)
     context = {
@@ -137,6 +150,7 @@ def student_detail(request,id):
     }
     return render(request,"student/studentDetail.html", context)
 
+@login_required 
 def edit_student(request, id):
     student = get_object_or_404(Student, id=id)
     if request.method == "POST":
@@ -151,6 +165,7 @@ def edit_student(request, id):
         form = StudentForm(instance=student)
     return render(request, 'student/editStudent.html', {'student': student, 'form': form})
 
+@login_required
 def delete_student(request, id):
     student = get_object_or_404(Student, id=id)
     student.delete()
