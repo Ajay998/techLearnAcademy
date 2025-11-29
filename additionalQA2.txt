@@ -1,0 +1,12 @@
+I would use Djangos built-in authentication plus Groups & Permissions.
+Each user belongs to a group Doctor Receptionist or Patient.
+Each group has different permissions
+
+User (default Django model)
+PatientProfile : linked to a user
+MedicalHistory : belongs to a patient
+Appointment : belongs to a patient; can be created by receptionist
+
+Doctor views: list all patients, view any medical history
+Receptionist views: create appointments only
+Patient views: see their own appointments + history
